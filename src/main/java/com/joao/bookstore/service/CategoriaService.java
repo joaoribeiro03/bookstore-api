@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.joao.bookstore.domain.Categoria;
+import com.joao.bookstore.dtos.CategoriaDTO;
 import com.joao.bookstore.repositories.CategoriaRepository;
 import com.joao.bookstore.service.exceptions.ObjectNotFoundException;
 
@@ -28,6 +29,13 @@ public class CategoriaService {
 
 	public Categoria create(Categoria obj) {
 		obj.setId(null);
+		return categoriaRepository.save(obj);
+	}
+
+	public Categoria update(Integer id, CategoriaDTO objDto) {
+		Categoria obj = findById(id);
+		obj.setNome(objDto.getNome());
+		obj.setDescricao(objDto.getDescricao());
 		return categoriaRepository.save(obj);
 	}
 
